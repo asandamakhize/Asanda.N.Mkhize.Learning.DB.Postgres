@@ -7,8 +7,8 @@ services:
     restart: no #setting to no because this is for learning and i don't want it to start up unless i intentionally start it up. 
     shm_size: 128mb
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: ${POSTGRES_USER:?postgres_username_required}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?postgres_password_required}
     deploy:
       resources:
         limits:
@@ -27,12 +27,11 @@ services:
     image: dpage/pgadmin4:8.14.0
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:?default_email_required}
-      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:?pgdamin_password_required}
     ports:
       - 8081:80
     volumes:
       - C:\learning\postgressql\volumes\alv-pdadmin:/var/lib/pgadmin
-      - C:\learning\postgressql\volumes\alv-pdadmin-storage-import:/var/lib/pgadmin/storage/${PGADMIN_DEFAULT_EMAIL:?default_email_required}
     networks:
       aln-databases:
         aliases:
