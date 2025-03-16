@@ -17,6 +17,7 @@ pids
 *.pid.lock
 
 volumes/alv-pdadmin/*
+!volumes/alv-pdadmin/storage
 volumes/alv-primary-postgres-database/*
 volumes/alv-primary-postgres-database-import/*
 volumes/alv-pdadmin-storage-import/*
