@@ -17,7 +17,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      -  C:\learning\postgressql\volumes\alv-primary-postgres-database:/var/lib/postgresql/data
+      -  ./volumes/alv-primary-postgres-database:/var/lib/postgresql/data
     networks:
       aln-databases:
         aliases:
@@ -31,7 +31,7 @@ services:
     ports:
       - 8081:80
     volumes:
-      - C:\learning\postgressql\volumes\alv-pdadmin:/var/lib/pgadmin
+      - ./volumes/alv-pdadmin:/var/lib/pgadmin
     networks:
       aln-databases:
         aliases:
