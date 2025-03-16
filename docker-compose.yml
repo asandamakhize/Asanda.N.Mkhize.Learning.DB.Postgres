@@ -1,0 +1,42 @@
+version: '3'
+
+# als = asanda learning service
+services:
+  als-primary-postgres-database:
+    image: postgres:16
+    restart: no #setting to no because this is for learning and i don't want it to start up unless i intentionally start it up. 
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?postgres_username_required}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?postgres_password_required}
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+    ports:
+      - "5432:5432"
+    volumes:
+      -  ./volumes/alv-primary-postgres-database:/var/lib/postgresql/data
+    networks:
+      aln-databases:
+        aliases:
+          - alsa-primary-postgres-database
+
+  pdadmin:
+    image: dpage/pgadmin4:8.14.0
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:?default_email_required}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:?pgdamin_password_required}
+    ports:
+      - 8081:80
+    volumes:
+      - ./volumes/alv-pdadmin:/var/lib/pgadmin
+    networks:
+      aln-databases:
+        aliases:
+          - alsa-pgadmin
+
+networks:
+  aln-databases:
+    driver: bridge
