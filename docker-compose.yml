@@ -4,7 +4,7 @@ version: '3'
 services:
   als-primary-postgres-database:
     image: postgres:16
-    restart: no #setting to no because this is for learning and i don't want it to start up unless i intentionally start it up. 
+    restart: no # setting to no because this is for learning and i don't want it to start up unless i intentionally start it up. 
     shm_size: 128mb
     environment:
       POSTGRES_USER: ${POSTGRES_USER:?postgres_username_required}
